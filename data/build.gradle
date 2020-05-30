@@ -1,0 +1,79 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply from: '../buildsystem/dependencies.gradle'
+
+android {
+    def cfg = rootProject.ext.configuration
+    compileSdkVersion cfg.compileVersion
+    buildToolsVersion cfg.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion cfg.minSdk
+        targetSdkVersion cfg.targetSdk
+        versionCode cfg.version_code
+        versionName cfg.version_name
+    }
+
+    publishNonDefault true
+
+    flavorDimensions 'brand'
+
+    productFlavors {
+        mock {
+            dimension 'brand'
+            buildConfigField 'String', 'DB_NAME', '"MockBookAppDatabase"'
+            buildConfigField 'String', 'URL', '""'
+            buildConfigField 'Boolean', 'IGNORE_SECURE_HTTP', 'true'
+            buildConfigField 'Boolean', 'DEBUG_HTTP_REQUEST', 'false'
+        }
+
+        dev {
+            dimension 'brand'
+            buildConfigField 'String', 'DB_NAME', '"DevLdaDatabase"'
+            buildConfigField 'String', 'URL_LDA', '""'
+            buildConfigField 'Boolean', 'IGNORE_SECURE_HTTP', 'true'
+            buildConfigField 'Boolean', 'DEBUG_HTTP_REQUEST', 'false'
+        }
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    def dataDependencies = rootProject.ext.dataDependencies
+
+    implementation project(':domain')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation presentationDependencies.coreKotlin
+
+    implementation dataDependencies.kodein
+    implementation dataDependencies.kodeinAndroid
+}
+
+repositories {
+    mavenCentral()
+}

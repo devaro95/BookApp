@@ -1,0 +1,37 @@
+project.ext {
+    sonarqube {
+        properties {
+            property "sonar.sourceEncoding", "UTF-8"
+            property "sonar.language", "kotlin"
+            property "sonar.host.url", "http://172.10.1.84:9000/"
+            property "sonar.projectName","LDA-Android"
+            property "sonar.projectKey", "com.babel.lineadirecta"
+            property "sonar.projectVersion", "${app.version}"
+            property "sonar.java.coveragePlugin", "jacoco"
+            //property "sonar.sources", "src/main/java, src/main/res/layout"
+            property "sonar.exclusions", "**/easymvvm*/**"
+            //property "sonar.java.binaries","build"
+            property "sonar.jacoco.reportPaths", "../presentation/build/jacoco/testMockDebugUnitTest.exec"
+            property "sonar.coverage.jacoco.xmlReportPaths", "../presentation/build/reports/jacoco/generateJacocoTestReport/generateJacocoTestReport.xml"
+            property "sonar.modules", ":presentation,:data,:domain"
+
+
+            //To change dependencies depending on modules add the property with prefix ":{module}.{sonarProperty}
+
+            //PRESENTATION MODULE
+            //property ":presentation.sonar.java.binaries","../presentation/build/tmp/kotlin-classes"
+            //property ":presentation.sonar.coverage.exclusions", "**/*Fragment.kt, **/*Activity.kt, **/*ViewModel.kt, **/*Adapter.kt, **/PresentationConstants.kt, **/widget/**, **/web/**, **/access/**, **/dialog/simple/**"
+
+            //DATA MODULE
+            //property ":data.sonar.java.binaries","../data/build/tmp/kotlin-classes"
+            property ":data.sonar.exclusions", "**/debug/**, **/release/**, **/local/**, **/mock/**, **/pre/**"
+            property ":data.sonar.coverage.exclusions", "**/manager/**, **/map/**, **/net/**, **/utils/**, **/ApiLdaRepository.kt"
+            //property ":data.sonar.coverage.exclusions", "**/manager/**, **/map/**, **/net/**, **/utils/**, **/ApiLdaRepository.kt, **/DataConstants.kt, **/security/**"
+
+            //DOMAIN MODULE
+            //property ":domain.sonar.java.binaries", "../domain/build/tmp/kotlin-classes"
+            property ":domain.sonar.coverage.exclusions", "**/exception/**, **/usecase/**"
+
+        }
+    }
+}

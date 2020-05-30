@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+def cfg = rootProject.ext.configuration
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion cfg.minSdk
+        targetSdkVersion cfg.targetSdk
+        versionCode cfg.version_code
+        versionName cfg.version_name
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner 'com.babel.lineadirecta.ui.TestRunner'
+    }
+
+    flavorDimensions 'brand'
+
+    productFlavors {
+        mock {
+            dimension 'brand'
+            buildConfigField 'Boolean', 'PORTRAIT_ORIENTATION', 'false'
+        }
+
+        dev {
+            dimension 'brand'
+            buildConfigField 'Boolean', 'PORTRAIT_ORIENTATION', 'false'
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+}
+
+configurations {
+    mockDebugCompile
+    mockReleaseCompile
+    devDebugCompile
+    devReleaseCompile
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation project(':data')
+
+    //EMA
+    implementation presentationDependencies.emaAndroid
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation presentationDependencies.coreKotlin
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    testImplementation presentationDependencies.junit
+    testImplementation presentationDependencies.junitKotlin
+
+    androidTestImplementation presentationDependencies.espresso
+    androidTestImplementation presentationDependencies.espressoContrib
+    androidTestImplementation presentationDependencies.junit
+    androidTestImplementation presentationDependencies.junitKotlin
+}
