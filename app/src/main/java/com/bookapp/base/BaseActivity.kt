@@ -8,16 +8,6 @@ import com.bookapp.R
 import es.babel.easymvvm.android.ui.EmaToolbarFragmentActivity
 import org.kodein.di.Kodein
 
-/**
- * Base activity for LDA application
- *
- * <p>
- * Copyright (c) 2018, Babel Sistemas de Información. All rights reserved.
- * </p>
- *
- * @author <a href=“mailto:carlos.mateo@babel.es”>Carlos Mateo</a>
- */
-
 abstract class BaseActivity : EmaToolbarFragmentActivity() {
 
     private val resultHandler: HashMap<Int, ActivityResultHandlerModel> = HashMap()

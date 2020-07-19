@@ -4,20 +4,21 @@ import com.bookapp.base.BaseViewModel
 import com.bookapp.model.BackModel
 import com.bookapp.model.TabbarModel
 import com.bookapp.model.ToolbarModel
+import com.bookapp.ui.home.HomeNavigator
 
 
-class MainToolbarsViewModel: BaseViewModel<HomeToolbarsState, HomeNavigator.Navigation>() {
+class MainToolbarsViewModel : BaseViewModel<HomeToolbarsState, HomeNavigator.Navigation>() {
 
 
     override fun onResume(firstTime: Boolean) {
-       val update = super.onResume(firstTime)
+        val update = super.onResume(firstTime)
         return update
     }
 
     override val initialViewState: HomeToolbarsState = HomeToolbarsState()
 
     fun onActionBackClicked() {
-       // navigate(HomeNavigator.Navigation.Back)
+        navigate(HomeNavigator.Navigation.Back)
     }
 
     fun onActionShowTabbar(show: Boolean) {
@@ -39,8 +40,8 @@ class MainToolbarsViewModel: BaseViewModel<HomeToolbarsState, HomeNavigator.Navi
     }
 
     fun onActionUpdateToolbar(update: Boolean = true, updateToolbar: (ToolbarModel) -> ToolbarModel) {
-        checkDataState{
-            if(update)
+        checkDataState {
+            if (update)
                 updateToNormalState {
                     copy(toolbarModel = updateToolbar.invoke(it.toolbarModel))
                 }
@@ -52,23 +53,23 @@ class MainToolbarsViewModel: BaseViewModel<HomeToolbarsState, HomeNavigator.Navi
     }
 
     fun onActionUpdateTabbar(updateTabbar: ((TabbarModel) -> TabbarModel)? = null) {
-
         updateTabbar?.also {
             updateToNormalState {
-                    val tabbarUpdated = it.invoke(tabbarModel)
-                    copy(
-                            tabbarModel = tabbarUpdated,
-                            toolbarModel = toolbarModel.copy(closeSessionVisibility = tabbarUpdated.visibility)
-                    )
-                }
-            } ?: updateToNormalState()
+                val tabbarUpdated = it.invoke(tabbarModel)
+                copy(
+                    tabbarModel = tabbarUpdated,
+                    toolbarModel = toolbarModel.copy(closeSessionVisibility = tabbarUpdated.visibility)
+                )
+            }
+        } ?: updateToNormalState()
     }
 
     fun onActionHandleBack(update: (currentBackModel: BackModel) -> BackModel) {
-        checkDataState{
+        checkDataState {
             updateToNormalState {
                 copy(backModel = update.invoke(backModel))
             }
         }
     }
+
 }

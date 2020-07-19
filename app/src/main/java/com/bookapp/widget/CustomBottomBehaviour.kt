@@ -5,17 +5,6 @@ import android.util.AttributeSet
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
-
-/**
- * Class to handle touch behaviour events
- *
- * <p>
- * Copyright (c) 2019, Babel Sistemas de Información. All rights reserved.
- * </p>
- *
- * @author <a href=“mailto:carlos.mateo@babel.es”>Carlos Mateo</a>
- */
-
 class CustomBottomBehaviour<V : View> : BottomSheetBehavior<V> {
 
     constructor() : super()

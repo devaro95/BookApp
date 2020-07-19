@@ -2,6 +2,45 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/graphMain">
+    android:id="@+id/graphMain"
+    app:startDestination="@id/loginViewFragment">
 
+    <fragment
+        android:id="@+id/loginViewFragment"
+        android:name="com.bookapp.ui.login.LoginViewFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginViewFragment_to_homeViewFragment"
+            app:destination="@id/homeViewFragment" />
+        <action
+            android:id="@+id/action_loginViewFragment_to_registerViewFragment"
+            app:destination="@id/registerViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeViewFragment"
+        android:name="com.bookapp.ui.home.HomeViewFragment"
+        android:label="@string/toolbar_title_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeViewFragment_to_categoryViewFragment"
+            app:destination="@id/categoryViewFragment" />
+        <action
+            android:id="@+id/action_homeViewFragment_to_historyViewFragment"
+            app:destination="@id/historyViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryViewFragment"
+        android:name="com.bookapp.ui.category.CategoryViewFragment"
+        android:label="@string/toolbar_title_categories"
+        tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/registerViewFragment"
+        android:name="com.bookapp.ui.register.RegisterViewFragment"
+        android:label="RegisterViewFragment"
+        tools:layout="@layout/fragment_register"/>
+    <fragment
+        android:id="@+id/historyViewFragment"
+        android:name="com.bookapp.ui.history.HistoryViewFragment"
+        android:label="@string/toolbar_title_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>

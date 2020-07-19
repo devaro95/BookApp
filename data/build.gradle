@@ -18,22 +18,24 @@ android {
 
     publishNonDefault true
 
-    flavorDimensions 'brand'
+    flavorDimensions 'environment'
 
     productFlavors {
         mock {
-            dimension 'brand'
+            dimension 'environment'
             buildConfigField 'String', 'DB_NAME', '"MockBookAppDatabase"'
-            buildConfigField 'String', 'URL', '""'
+            buildConfigField 'String', 'URL', '"http://10.0.2.2:3000"'
             buildConfigField 'Boolean', 'IGNORE_SECURE_HTTP', 'true'
+            buildConfigField 'okhttp3.logging.HttpLoggingInterceptor.Level', 'HTTP_LOG_LEVEL', 'okhttp3.logging.HttpLoggingInterceptor.Level.BODY'
             buildConfigField 'Boolean', 'DEBUG_HTTP_REQUEST', 'false'
         }
 
         dev {
-            dimension 'brand'
+            dimension 'environment'
             buildConfigField 'String', 'DB_NAME', '"DevLdaDatabase"'
-            buildConfigField 'String', 'URL_LDA', '""'
+            buildConfigField 'String', 'URL', '"http://10.0.2.2:3000"'
             buildConfigField 'Boolean', 'IGNORE_SECURE_HTTP', 'true'
+            buildConfigField 'okhttp3.logging.HttpLoggingInterceptor.Level', 'HTTP_LOG_LEVEL', 'okhttp3.logging.HttpLoggingInterceptor.Level.BODY'
             buildConfigField 'Boolean', 'DEBUG_HTTP_REQUEST', 'false'
         }
     }
@@ -72,6 +74,20 @@ dependencies {
 
     implementation dataDependencies.kodein
     implementation dataDependencies.kodeinAndroid
+
+    //Log
+    implementation dataDependencies.timber
+
+    //Net
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitScalars
+    implementation dataDependencies.retrofitGson
+    implementation dataDependencies.retrofitXml
+    implementation dataDependencies.okHttpLogginInterceptor
+    implementation dataDependencies.retrofitCoroutinesAdapter
+
+    debugImplementation dataDependencies.interceptorChuckDebug
+    releaseImplementation dataDependencies.interceptorChuckRelease
 }
 
 repositories {

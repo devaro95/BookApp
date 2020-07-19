@@ -4,16 +4,6 @@ import com.domain.INT_NEGATIVE
 import com.domain.STRING_EMPTY
 import java.io.Serializable
 
-/**
- * Model to represent the tabbar
- *
- * <p>
- * Copyright (c) 2019, Babel Sistemas de Información. All rights reserved.
- * </p>
- *
- * @author <a href=“mailto:carlos.mateo@babel.es”>Carlos Mateo</a>
- */
-
 data class TabbarModel(
     val visibility: Boolean = true,
     val buttons: List<TabbarButtonModel> = emptyList(), /*Buttons starting from left to right, no center button included*/

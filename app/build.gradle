@@ -19,16 +19,16 @@ android {
         testInstrumentationRunner 'com.babel.lineadirecta.ui.TestRunner'
     }
 
-    flavorDimensions 'brand'
+    flavorDimensions 'environment'
 
     productFlavors {
         mock {
-            dimension 'brand'
+            dimension 'environment'
             buildConfigField 'Boolean', 'PORTRAIT_ORIENTATION', 'false'
         }
 
         dev {
-            dimension 'brand'
+            dimension 'environment'
             buildConfigField 'Boolean', 'PORTRAIT_ORIENTATION', 'false'
         }
 

@@ -12,16 +12,6 @@ import es.babel.easymvvm.core.state.EmaExtraData
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
-/**
- * Base fragment for LDA application
- *
- * <p>
- * Copyright (c) 2018, Babel Sistemas de Información. All rights reserved.
- * </p>
- *
- * @author <a href=“mailto:carlos.mateo@babel.es”>Carlos Mateo</a>
- */
-
 abstract class BaseFragment<S : EmaBaseState, VM : BaseViewModel<S, NS>, NS : EmaNavigationState> : EmaFragment<S, VM, NS>() {
 
     override fun injectFragmentModule(kodein: Kodein.MainBuilder): Kodein.Module = generateFragmentModule(this)

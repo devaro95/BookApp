@@ -8,7 +8,7 @@ import com.bookapp.base.BaseActivity
 import com.bookapp.model.BackModel
 import com.bookapp.model.TabbarModel
 import com.bookapp.model.ToolbarModel
-import com.bookapp.widget.CustomBottomBehaviour
+import com.bookapp.ui.home.HomeNavigator
 import com.data.KODEIN_TAG_DIALOG_SIMPLE
 import com.domain.FLOAT_ZERO
 import com.domain.INT_ZERO
@@ -18,7 +18,9 @@ import es.babel.easymvvm.android.extra.EmaResultModel
 import es.babel.easymvvm.android.ui.EmaView
 import es.babel.easymvvm.core.dialog.EmaDialogProvider
 import es.babel.easymvvm.core.state.EmaExtraData
-import kotlinx.android.synthetic.main.activity_base.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_tabbar.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.kodein.di.generic.instance
 
 class MainToolbarsViewActivity : BaseActivity(), EmaView<HomeToolbarsState, MainToolbarsViewModel, HomeNavigator.Navigation> {
@@ -28,8 +30,6 @@ class MainToolbarsViewActivity : BaseActivity(), EmaView<HomeToolbarsState, Main
     override val navigator: HomeNavigator by instance()
 
     override val inputState: HomeToolbarsState? = null
-
-    private lateinit var bottomSheetTabbar: CustomBottomBehaviour<*>
 
     private var bottomViewMargin: Int = INT_ZERO
 
@@ -42,7 +42,7 @@ class MainToolbarsViewActivity : BaseActivity(), EmaView<HomeToolbarsState, Main
         initializeViewModel(this)
         emaAppBarLayout.elevation = FLOAT_ZERO
         bottomViewMargin = (navHostFragment.view?.layoutParams as? ConstraintLayout.LayoutParams)?.bottomMargin
-                ?: INT_ZERO
+            ?: INT_ZERO
     }
 
     private var vm: MainToolbarsViewModel? = null
@@ -56,10 +56,10 @@ class MainToolbarsViewActivity : BaseActivity(), EmaView<HomeToolbarsState, Main
         navController.addOnDestinationChangedListener { _, destination, _ ->
             //val backVisibility = destination.id != R.id.homeDashboardViewFragment
             // False to avoid screen update and change title effect flash
-            viewModel.onActionUpdateToolbar(false) {
+            viewModel.onActionUpdateToolbar {
                 it.copy(
-                       // backVisibility = backVisibility,
-                        title = destination.label?.toString() ?: STRING_EMPTY
+                    // backVisibility = backVisibility,
+                    title = destination.label?.toString() ?: STRING_EMPTY
                 )
             }
         }
@@ -75,7 +75,6 @@ class MainToolbarsViewActivity : BaseActivity(), EmaView<HomeToolbarsState, Main
     }
 
     private fun checkBackImplementation() {
-
         backModel?.implementation?.invoke() ?: onBackSystemPressed()
     }
 
@@ -117,6 +116,7 @@ class MainToolbarsViewActivity : BaseActivity(), EmaView<HomeToolbarsState, Main
         val title = data.title
         val backVisibility = if (data.backVisibility) View.VISIBLE else View.INVISIBLE
         val closeSessionVisibility = if (data.closeSessionVisibility) View.VISIBLE else View.INVISIBLE
+        tvToolbarTitle.text = title
     }
 
 
@@ -154,11 +154,11 @@ class MainToolbarsViewActivity : BaseActivity(), EmaView<HomeToolbarsState, Main
 
     private fun showTabbar() {
         (navHostFragment.view?.layoutParams as? ConstraintLayout.LayoutParams)?.bottomMargin = bottomViewMargin
-        //clTabbar.visibility = View.VISIBLE
+        tabbarWidget.visibility = View.VISIBLE
     }
 
     private fun hideTabbar() {
         (navHostFragment.view?.layoutParams as? ConstraintLayout.LayoutParams)?.bottomMargin = INT_ZERO
-        //clTabbar.visibility = View.GONE
+        tabbarWidget.visibility = View.GONE
     }
 }

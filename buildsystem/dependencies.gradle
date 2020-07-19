@@ -22,6 +22,10 @@ project.ext {
 
     emaVersion = "2.3.0"
 
+    chuckVersion = "1.1.0"
+
+    timberVersion = "4.7.1"
+
     app = [
             versionCode: 888,
             version    : "5.5.0"
@@ -62,5 +66,8 @@ project.ext {
             firebaseMessaging        : "com.google.firebase:firebase-messaging:" + project.firebaseMessagingVersion,
             firebaseCore             : "com.google.firebase:firebase-core:" + project.firebaseVersion,
             emaCore                  : "com.github.babel-cdm.ema:easymvvm-core:" + project.emaVersion,
+            interceptorChuckDebug    : "com.readystatesoftware.chuck:library:" + project.chuckVersion,
+            interceptorChuckRelease  : "com.readystatesoftware.chuck:library-no-op:" + project.chuckVersion,
+            timber                   : "com.jakewharton.timber:timber:" + project.timberVersion
     ]
 }

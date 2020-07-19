@@ -1,14 +1,13 @@
 package com.data
 
-/**
- * File to handle data layer constants
- *
- * <p>
- * Copyright (c) 2019, Babel Sistemas de Información. All rights reserved.
- * </p>
- *
- * @author <a href=“mailto:carlos.mateo@babel.es”>Carlos Mateo</a>
- */
+
+const val TIMEOUT_RETROFIT = 90L
+
+const val HEADER_AUTHORIZATION = "Authorization"
+
+const val HTTP_ERROR_CODES_START = 300
+
+const val LOGIN_CONFIG = "BOOKAPP"
 
 const val KODEIN_TAG_DIALOG_FINGERPRINT = "KODEIN_TAG_DIALOG_FINGERPRINT"
 const val KODEIN_TAG_DIALOG_SLIDER = "KODEIN_TAG_DIALOG_SLIDER"
